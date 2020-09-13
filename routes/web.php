@@ -2,6 +2,60 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('login', function (){
+    return '<h1>Página de login</h1>';
+})->name('login');
+
+/*
+Grupo de rotas
+*/
+
+/*
+Route::middleware([])->group(function (){ // Caso requeira autentificação colocar auth em middleware
+
+    Route::prefix('admin')->group(function (){//Prefixo da URL
+
+        Route::namespace('Admin')->group(function (){//Pasta Admin onde estão os controllers
+            Route::name('admin.')->group(function (){
+                Route::get('/dashboard', 'TesteController@dashboard')->name('dashboard');
+
+                Route::get('/financeiro', 'TesteController@financeiro')->name('financeiro');
+
+                Route::get('/cadastros', 'TesteController@cadastros')->name('cadastros');
+
+                Route::get('/', function (){
+                    return redirect()->route('admin.dashboard');
+                })->name('home');
+            });
+        });
+
+    });
+
+});
+*/
+
+/*
+                MESMA COISA QUE O DE CIMA PORÉM TODOS GRUPOS RECEBEM FUNCIONALIDADES DE CARA
+                ----------------------------------------------------------------------------
+                PORÉM NÃO FUNCIONA PARA NAME
+*/
+
+Route::group([
+    'middleware' => [],
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+], function (){
+    Route::get('/dashboard', 'TesteController@dashboard')->name('admin.dashboard');
+
+    Route::get('/financeiro', 'TesteController@financeiro')->name('admin.financeiro');
+
+    Route::get('/cadastros', 'TesteController@cadastros')->name('admin.cadastros');
+
+    Route::get('/', function (){
+         return redirect()->route('admin.dashboard');
+    })->name('home');
+});
+
 /*
 Rotas nomeadas
 */
