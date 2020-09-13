@@ -2,6 +2,36 @@
 
 use Illuminate\Support\Facades\Route;
 
+/*
+Rotas nomeadas
+*/
+
+Route::get('redirect3', function(){
+    return redirect()->route('url.name');
+});
+
+Route::get('name-url', function(){
+    return 'Hey estranho';
+})->name('url.name');
+
+/*
+Redirects de rotas
+*/
+
+Route::view('/view', 'welcome');
+
+Route::redirect('redirect1', 'redirect2');
+
+// OU USE O EXEMPLO COMENTADO A BAIXO
+
+// Route::get('redirect1', function(){
+//     return redirect('/redirect2');
+// });
+
+Route::get('redirect2', function(){
+    return 'Você caiu na redirect 2!';
+});
+
 Route::get('produtos/{id?}', function($id = ''){
     return "Produto(s) {$id}";
 });
