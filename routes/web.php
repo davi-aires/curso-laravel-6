@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('products', 'ProductController@index')->name('products.index');
+Route::get('products/{id}', 'ProductController@show')->name('products.show');
+
 Route::get('login', function (){
     return '<h1>Página de login</h1>';
 })->name('login');
@@ -84,10 +87,6 @@ Route::redirect('redirect1', 'redirect2');
 
 Route::get('redirect2', function(){
     return 'Você caiu na redirect 2!';
-});
-
-Route::get('produtos/{id?}', function($id = ''){
-    return "Produto(s) {$id}";
 });
 
 Route::get('/categoria/{flag}/comments', function ($flag){
