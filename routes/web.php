@@ -53,7 +53,7 @@ Route::group([
 
     Route::get('/', function (){
          return redirect()->route('admin.dashboard');
-    })->name('home');
+    })->name('admin.home');
 });
 
 /*
