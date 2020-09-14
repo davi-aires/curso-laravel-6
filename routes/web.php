@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('products', 'ProductController@index')->name('products.index');
-Route::get('products/{id}', 'ProductController@show')->name('products.show');
+Route::resource('products', 'ProductController');
+
 
 Route::get('login', function (){
     return '<h1>Página de login</h1>';
@@ -14,7 +14,7 @@ Grupo de rotas
 */
 
 /*
-Route::middleware([])->group(function (){ // Caso requeira autentificação colocar auth em middleware
+Route:: ([])->group(function (){ // Caso requeira autentificação colocar auth em middleware
 
     Route::prefix('admin')->group(function (){//Prefixo da URL
 
