@@ -26,19 +26,9 @@ class ProductController extends Controller
 
     public function index()
     {
+        $teste = 'Maçã';
 
-        $produtos = [
-            'Limão' => '50 R$',
-            'Maçã' => '30 R$',
-            'Banana' => '50 R$'
-        ];
-
-        echo 'Fruta &nbsp Preço</br></br>';
-
-        foreach ($produtos as $k => $v){
-            echo "$k\t$v</br>";
-        }
-        return;
+        return view('admin.pages.products.index', compact('teste'));
     }
 
     /**
