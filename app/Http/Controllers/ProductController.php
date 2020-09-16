@@ -26,9 +26,11 @@ class ProductController extends Controller
 
     public function index()
     {
-        $teste = 'Maçã';
-
-        return view('admin.pages.products.index', compact('teste'));
+        $teste = 123;
+        $teste2 = [4,4,2,6,8,3,7.2];
+        $produtos = ['Tv', 'PC', 'Sofá'];
+        $name = 'joao';
+        return view('admin.pages.products.index', compact('name', 'teste', 'teste2', 'produtos'));
     }
 
     /**
