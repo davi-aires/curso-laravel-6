@@ -51,7 +51,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        dd('cadastrando');
+        //dd('cadastrando');
+        // dd($request->all());
+        // dd($request->only(['nome', 'desc']));
+        //dd($request->nome);
+        // dd($request->has('nome'));
+        if($request->file('photo')->isValid()) {
+            //dd($request->photo->store('products'));
+            $nameFile = $request->nome. '.' . $request->photo->extension();
+            dd($request->photo->storeAs('products', $nameFile));
+        }
     }
 
     /**
