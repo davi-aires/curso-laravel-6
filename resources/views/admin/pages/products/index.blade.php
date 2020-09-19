@@ -2,6 +2,21 @@
 
 @section('titleAdm', 'Admin Page')
 
+@section('content')
+    <h1>Exibindo produtos!</h1>
+    <hr>
+    <a href="{{route('products.create')}}">Cadastrar produto</a>
+@endsection
+
+
+
+
+
+
+
+
+<!--Utilidades-->
+
 @section('repeats')
     @isset($produtos)
         Esse vetor existe com os seguintes valores:<br>

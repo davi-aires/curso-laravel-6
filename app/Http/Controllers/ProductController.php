@@ -18,7 +18,7 @@ class ProductController extends Controller
     {
         $this->request = $request;
 
-        $this->middleware(['auth'])->only([
+        $this->middleware([])->only([
             'create',
             'store'
         ]);
@@ -40,7 +40,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.products.create');
     }
 
     /**
@@ -51,7 +51,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd('cadastrando');
     }
 
     /**
@@ -73,7 +73,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.pages.products.edit', compact('id'));
     }
 
     /**
@@ -85,7 +85,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd("Editando produto {$id}");
     }
 
     /**
