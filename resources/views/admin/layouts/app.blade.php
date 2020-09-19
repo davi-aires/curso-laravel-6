@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('titleAdm') - Sistema</title>
+    @stack('styles')
 </head>
 <body>
 
@@ -21,6 +22,6 @@
     <div class="array">
         @yield('repeats')
     </div>
-
+    @stack('background')
 </body>
 </html>

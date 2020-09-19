@@ -53,8 +53,15 @@
     </p>
 @endsection
 
-<style>
-    .last {
-        background: #ccc
-    }
-</style>
+@push('styles')
+    <style>
+        .last {
+            background: #ccc
+        }
+    </style>
+@endpush
+@push('background')
+    <script>
+        document.body.style.background = "#999"
+    </script>
+@endpush
