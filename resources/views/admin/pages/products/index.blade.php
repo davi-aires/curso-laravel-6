@@ -5,6 +5,15 @@
 @section('content')
     <h1>Exibindo produtos!</h1>
     <a href="{{route('products.create')}}" class="btn btn-dark">Cadastrar produto</a>
+
+    <hr>
+
+    <form action="{{  route('products.search') }}" method="post" class="form form-inline">
+        @csrf
+        <input type="text" name="filter" placeholder="Filtrar:" class="form-control" value="{{$filters['filter'] ?? ""}}">
+        <button type="submit" class="btn btn-info">Filtrar</button>
+    </form>
+
     <hr>
 
     <table class="table table-striped">
@@ -29,7 +38,13 @@
         </tbody>
     </table>
     <hr>
-    {!! $products->links() !!}
+
+    @if (isset($filters))
+        {!! $products->appends($filters)->links() !!}
+    @else
+        {!! $products->links() !!}
+    @endif
+
 
 @endsection
 
