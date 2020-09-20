@@ -25,16 +25,20 @@ class StoreProduct extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:255',
-            'desc' => 'nullable|min:3|max:1000',
-            'photo' => 'required|image'
+            'desc' => 'required|min:3|max:1000',
+            'price' => 'required',
+            'image' => 'nullable|image'
         ];
     }
 
     public function messages()
     {
         return [
+            'name.min' => 'O nome deve ter ao menos 3 caracteres!',
             'name.required' => 'É obrigatório inserir um nome!',
             'desc.min' => 'A descrição deve ter ao menos 3 caracteres!',
+            'desc.required' => 'É obrigatório inserir uma descrição!',
+            'price.required' => 'Insira um preço',
             'photo.required' => 'Insira um imagem'
         ];
     }

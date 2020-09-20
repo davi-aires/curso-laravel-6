@@ -15,10 +15,12 @@ class ProductController extends Controller
      */
 
     protected $request;
+    private $repository;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, Product $product)
     {
         $this->request = $request;
+        $this->repository = $product;
 
         $this->middleware([])->only([
             'create',
@@ -54,24 +56,11 @@ class ProductController extends Controller
      */
     public function store(StoreProduct $request)
     {
-        dd('OK');
-        
-        // $request->validate([
-        //     'name' => 'required|min:3|max:255',
-        //     'desc' => 'nullable|min:3|max:1000',
-        //     'photo' => 'required|image'
-        // ]);
+        $data = $request->only('name', 'desc', 'price');
 
-        //dd('cadastrando');
-        // dd($request->all());
-        // dd($request->only(['nome', 'desc']));
-        //dd($request->nome);
-        // dd($request->has('nome'));
-        if($request->file('photo')->isValid()) {
-            //dd($request->photo->store('products'));
-            $nameFile = $request->nome. '.' . $request->photo->extension();
-            dd($request->photo->storeAs('products', $nameFile));
-        }
+        $product = Product::create($data);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -82,7 +71,16 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return "Detalhes do produto {$id}";
+
+        // $product = Product::where('id', $id)->first();
+        $product = Product::find($id);
+
+        if (!$product)
+            return redirect()->back();
+
+        return view('admin.pages.products.show', [
+            'product' => $product,
+        ]);
     }
 
     /**
@@ -93,7 +91,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.pages.products.edit', compact('id'));
+        $product = Product::find($id);
+
+        if (!$product)
+            return redirect()->back();
+
+        return view('admin.pages.products.edit', compact('product'));
     }
 
     /**
@@ -105,7 +108,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd("Editando produto {$id}");
+        $product = Product::find($id);
+
+        if (!$product)
+            return redirect()->back();
+
+        $product->update($request->all());
+        
+        return redirect()->route('products.index');    
     }
 
     /**
@@ -116,6 +126,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = $this->repository->find($id);
+        if (!$product)
+            return redirect()->back();
+
+        $product->delete();
+
+        return redirect()->route('products.index');
     }
 }
