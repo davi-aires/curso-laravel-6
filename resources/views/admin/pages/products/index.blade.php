@@ -6,77 +6,38 @@
     <h1>Exibindo produtos!</h1>
     <hr>
     <a href="{{route('products.create')}}">Cadastrar produto</a>
-@endsection
-
-
-
-
-
-
-
-
-<!--Utilidades-->
-
-@section('repeats')
-    @isset($produtos)
-        Esse vetor existe com os seguintes valores:<br>
-        @foreach ($produtos as $produto)
-        <p class="@if ($loop->last) last @endif">
-            {{ $produto }}
-        </p>
-        @endforeach
-    @endisset
     <hr>
-    @forelse ($produtos as $produto)
-        <p class="@if ($loop->first) last @endif">
-            {{ $produto }}
-        </p>
-    @empty
-        Não há produtos cadastrados
-    @endforelse
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($products as $product)
+                <tr>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->price }}</td>
+                    <td>
+                        <a href="">Detalhes</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    {!! $products->links() !!}
 
 @endsection
 
-@section('name')
-    {{$name}}
 
-    @auth
-    @else
-        <p>
-            Não está logado!
-        </p>
-    @endauth
 
-    @guest
-        <p></p>
-        Sabia que não tava logado, seu fracassado!
-    @endguest
-@endsection
 
-@section('switchTeste')
-    <p>
-        @switch($teste)
-            @case(123)
-                <b>var</b> teste é 123 mas é número
-                @break
-            @case('123')
-                <b>var</b> teste é 123 mas é string
-                @break
-            @default
-                N é nada
-        @endswitch
-    </p>
-@endsection
 
-@push('styles')
-    <style>
-        .last {
-            background: #ccc
-        }
-    </style>
-@endpush
-@push('background')
-    <script>
-        document.body.style.background = "#999"
-    </script>
-@endpush
+
+
+
+
