@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -58,6 +59,12 @@ class ProductController extends Controller
     {
         $data = $request->only('name', 'desc', 'price');
 
+        if ($request->hasFile('image') && $request->image->isValid()){
+            $imagePath = $request->image->store('products');
+
+            $data['image'] = $imagePath;
+        }
+
         $product = Product::create($data);
 
         return redirect()->route('products.index');
@@ -109,11 +116,21 @@ class ProductController extends Controller
     public function update(StoreProduct $request, $id)
     {
         $product = Product::find($id);
-
         if (!$product)
             return redirect()->back();
+        
+        $data = $request->all();
 
-        $product->update($request->all());
+        if ($request->hasFile('image') && $request->image->isValid()){
+            if($product->image && Storage::exists("$product->image")){
+                Storage::delete($product->image);
+            }
+
+            $imagePath = $request->image->store('products');
+            $data['image'] = $imagePath;
+        }
+
+        $product->update($data);
         
         return redirect()->route('products.index');    
     }
@@ -129,6 +146,10 @@ class ProductController extends Controller
         $product = $this->repository->find($id);
         if (!$product)
             return redirect()->back();
+
+        if($product->image && Storage::exists("$product->image")){
+            Storage::delete($product->image);
+        }
 
         $product->delete();
 
